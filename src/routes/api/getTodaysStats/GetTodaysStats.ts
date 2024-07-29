@@ -30,7 +30,10 @@ export class GetTodaysStats extends AuthAPIResponse {
 				user: {
 					id: props.user?.id
 				}
-			}
+			},
+      orderBy: {
+        id: "asc"
+      }
 		});
 
 		if (cols.length === 0) {
