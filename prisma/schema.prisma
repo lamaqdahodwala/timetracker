@@ -31,7 +31,7 @@ model Column {
   historicalData Row[]
   today          Int
   name           String
-  lastUpdated    DateTime @updatedAt
+  lastUpdated    DateTime @updatedAt @db.Timestamptz()
   type           String   @default("additive")
   factor         Int      @default(1)
   threshold      Int      @default(0)

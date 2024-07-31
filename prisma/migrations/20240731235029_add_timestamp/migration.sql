@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Column" ALTER COLUMN "lastUpdated" SET DATA TYPE TIMESTAMPTZ;
