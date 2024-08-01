@@ -11,6 +11,7 @@
 	let isThresholdBest = 1;
 	let factor = 1;
 	let stackCheckbox: HTMLInputElement;
+  let stackable: boolean
 
 	let fetchColInfo = async () => {
 		let res = await fetch(`/api/getColumnInfo/${colId}`);
@@ -26,6 +27,8 @@
 			threshold = json.threshold;
 		}
 		colName = json.name;
+
+    stackable = json.stackable  //? 1 : 0
 	};
 
 	onMount(fetchColInfo);
@@ -94,7 +97,7 @@
 				value shown plus 1.</small
 			>
 		</p>
-		<p><label>Stackable? <input type="checkbox" bind:this={stackCheckbox} value={1} /></label></p>
+		<p><label>Stackable? <input type="checkbox" bind:this={stackCheckbox} value={1} checked={stackable} /></label></p>
 		<button type="submit">Update Column</button>
 	</div>
 </form>
