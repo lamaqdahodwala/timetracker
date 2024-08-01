@@ -26,7 +26,7 @@ export class GetTargetInfo extends AuthAPIResponse {
 		if (!target) return { targetString: null };
 
 		if (target.length === 'day') {
-			return { targetString: `${column.today}/${target.targetValue} today` };
+			return { targetString: `${column.today}/${target.targetValue} today`, isOverTarget: column.today >= target.targetValue };
 		}
 
 		let setOnDate = DateTime.fromJSDate(target.setOn);
