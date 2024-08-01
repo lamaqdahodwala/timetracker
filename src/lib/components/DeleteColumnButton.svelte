@@ -24,13 +24,21 @@
 </script>
 
 <button class="rounded-lg p-1" on:click={() => (initialClick = !initialClick)}>
-	<p class="btn flex btn-error flex-row gap-1 font-bold text-gray-800">
+	<p class="btn btn-error flex flex-row gap-1 font-bold text-gray-800">
 		<IconTrash stroke={1.5} size={20}></IconTrash> Delete Column
 	</p>
 </button>
 
 {#if initialClick}
-	<p>Are you sure?</p>
-	<button on:click={() => (initialClick = false)} class="btn rounded-lg btn-neutral text-white p-2">Cancel</button>
-	<button class="rounded-lg btn-error p-2 text-gray-800 btn" on:click={sendRequest}>Yes</button>
+	<div class="flex flex-col">
+		<p class="font-bold">Are you sure?</p>
+
+		<div class="join join-vertical">
+			<button
+				on:click={() => (initialClick = false)}
+				class="btn btn-neutral rounded-lg p-2 text-white join-item">Cancel</button
+			>
+			<button class="btn btn-error rounded-lg p-2 text-gray-800 join-item font-bold" on:click={sendRequest}>Yes, delete all data</button>
+		</div>
+	</div>
 {/if}
