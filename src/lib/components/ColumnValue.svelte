@@ -98,7 +98,7 @@
 	}
 
   let updateColumnDropdown: HTMLDetailsElement
-  const refetchColumnStats
+  let refetchColumnStats 
 </script>
 
 <svelte:window on:resize={() => setDropDownEndClass(dropdown)} />
