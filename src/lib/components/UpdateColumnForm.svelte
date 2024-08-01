@@ -75,19 +75,21 @@
 
 <form on:submit|preventDefault={submitFormAndCreateColumn}>
 	<div>
-		<input type="text" bind:value={colName} />
+		<input type="text" bind:value={colName}  class="input"/>
 		{#each ['additive', 'subtractive', 'multiplicative', 'divisive'] as col}
-			<p><label><input type="radio" bind:group={colType} value={col} /> {col}</label></p>
+			<p>
+				<label><input type="radio" bind:group={colType} value={col} class="radio" /> {col}</label>
+			</p>
 		{/each}
 		<p>
 			<label>
-				<input type="radio" bind:group={isThresholdBest} value={1} />
+				<input type="radio" bind:group={isThresholdBest} value={1}  class="radio"/>
 				Personal Best
 			</label>
 		</p>
 		<p>
 			<label>
-				<input type="radio" bind:group={isThresholdBest} value={0} />
+				<input type="radio" bind:group={isThresholdBest} value={0} class="radio"/>
 				Custom: <input type="number" bind:value={threshold} />
 			</label>
 		</p>
@@ -98,14 +100,8 @@
 					factor={Number(factor)}
 					on:updateFactor={(newFactor) => (factor = newFactor.detail.factor)}
 				/>
-        <input type="range" name="" id="" bind:value={factor} class="range">
+				<input type="range" name="" id="" bind:value={factor} class="range" />
 			</label>
-		</p>
-		<p>
-			<small
-				>For multiplicative/divisive columns, the factor that will be multiplied/divided is the
-				value shown plus 1.</small
-			>
 		</p>
 		<p>
 			<label
@@ -117,8 +113,9 @@
 				/></label
 			>
 		</p>
-		<button type="submit">Update Column</button>
+		<div class="p-1">
+			<button type="submit" class="btn btn-outline btn-primary w-full">Update Column</button>
+		</div>
 	</div>
 </form>
-<button on:click={() => dispatch('close')} class="btn">Close</button>
 <DeleteColumnButton on:refetchData={() => dispatch('refetchData')} {colId}></DeleteColumnButton>
