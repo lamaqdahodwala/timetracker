@@ -73,7 +73,7 @@
   }
 </script>
 
-<div class="join">
+<div class="join flex flex-row items-center">
   <div class="mx-2">{getPrefix(colType)}</div>
   <input class="font-bold" type="number" value={adaptFactorForColType(factor, colType)} on:input={(e) => updateFactorThroughInput(e)}/>
 </div>

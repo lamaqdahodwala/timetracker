@@ -51,44 +51,67 @@
 	}
 </script>
 
-<form on:submit|preventDefault={submitFormAndCreateColumn} class="rounded-xl p-4 shadow-lg">
-	<label class="form-control">Column Name: <input type="text" bind:value={colName} class="input"/></label>
-	<div class="form-control">{#each ['additive', 'subtractive', 'multiplicative', 'divisive'] as col}
-		<p><label><input type="radio" bind:group={colType} value={col} class="radio"/> {col}</label></p>
-	{/each}</div>
-	<p class="form-control">
-		<label>
-			<input type="radio" bind:group={isThresholdBest} value={1} class="radio"/>
-			Personal Best
+<form
+	on:submit|preventDefault={submitFormAndCreateColumn}
+	class="flex flex-col gap-1 rounded-xl p-4 shadow-lg "
+>
+	<div>
+		<label class="form-control rounded-xl border border-neutral p-2">
+			<p class="my-2 font-bold">Column Name</p>
+			<input type="text" bind:value={colName} class="input" />
 		</label>
-		<label>
-			<input type="radio" bind:group={isThresholdBest} value={0} class="radio"/>
-			Custom: <input type="number" bind:value={threshold} />
-		</label>
-	</p>
-	<p>
-		<label>
-			<span class="flex flex-row gap-1"
-				>Factor:
-				<FactorDisplayer
-					{colType}
-					factor={Number(factor)}
-					on:updateFactor={(factor) => setFactor(factor.detail.newFactor)}
-				></FactorDisplayer></span
+	</div>
+	<div>
+		<div class="form-control rounded-xl border border-neutral p-2">
+			<p class="my-2 font-bold">Column Type</p>
+			{#each ['additive', 'subtractive', 'multiplicative', 'divisive'] as col}
+				<p>
+					<label><input type="radio" bind:group={colType} value={col} class="radio" /> {col}</label>
+				</p>
+			{/each}
+		</div>
+	</div>
+	<div>
+		<div class="rounded-xl border border-neutral p-2">
+			<p class="my-2 font-bold">Threshold</p>
+			<p>
+				<input type="radio" bind:group={isThresholdBest} value={1} class="radio" />
+				Personal Best
+			</p>
+			<p>
+				<input type="radio" bind:group={isThresholdBest} value={0} class="radio" />
+				Custom: <input type="number" bind:value={threshold}/>
+			</p>
+		</div>
+	</div>
+	<div>
+		<p class="rounded-xl border border-neutral p-2">
+			<label>
+				<span class="">
+					<p class="my-2 font-bold">Factor</p>
+					<FactorDisplayer
+						{colType}
+						factor={Number(factor)}
+						on:updateFactor={(factor) => setFactor(factor.detail.newFactor)}
+					></FactorDisplayer></span
+				>
+				<input type="range" class="range" bind:value={factor}/></label
 			>
-			<input type="range" class="range" bind:value={factor} /></label
-		>
-	</p>
-	<p class="form-control">
-		<label
-			>Stackable? <input
-				type="checkbox"
-				class="toggle"
-				bind:this={stackCheckbox}
-				value={1}
-				checked={true}
-			/></label
-		>
-	</p>
-	<button type="submit">Create Column</button>
+		</p>
+	</div>
+	<div>
+		<p class="form-control rounded-xl border border-neutral p-2">
+			<label class="flex flex-row gap-3">
+				<p class="font-bold">Stackable?</p>
+				<input
+					type="checkbox"
+					class="toggle"
+					bind:this={stackCheckbox}
+					value={1}
+					checked={true}
+				/></label
+			>
+		</p>
+	</div>
+	<button type="submit" class="btn btn-primary btn-outline">Create Column</button>
 </form>
