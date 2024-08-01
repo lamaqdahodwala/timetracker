@@ -59,8 +59,8 @@
     refetchHistoricalGraph()
   }
 
-  const refetchColumnInfo
-  const refetchHistoricalGraph
+  let refetchColumnInfo
+  let refetchHistoricalGraph
 </script>
 
 <div class="dropdown dropdown-hover {dropdownEndClass}">
