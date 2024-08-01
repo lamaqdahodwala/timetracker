@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import DeleteColumnButton from './DeleteColumnButton.svelte';
+	import FactorDisplayer from './FactorDisplayer.svelte';
 
 	let dispatch = createEventDispatcher();
 
@@ -11,7 +12,7 @@
 	let isThresholdBest = 1;
 	let factor = 1;
 	let stackCheckbox: HTMLInputElement;
-  let stackable: boolean
+	let stackable: boolean;
 
 	let fetchColInfo = async () => {
 		let res = await fetch(`/api/getColumnInfo/${colId}`);
@@ -28,7 +29,7 @@
 		}
 		colName = json.name;
 
-    stackable = json.stackable  //? 1 : 0
+		stackable = json.stackable; //? 1 : 0
 	};
 
 	onMount(fetchColInfo);
@@ -90,14 +91,32 @@
 				Custom: <input type="number" bind:value={threshold} />
 			</label>
 		</p>
-		<p><label>Factor: <input type="number" bind:value={factor} /></label></p>
+		<p>
+			<label
+				>Factor: <FactorDisplayer
+					{colType}
+					factor={Number(factor)}
+					on:updateFactor={(newFactor) => (factor = newFactor.detail.factor)}
+				/>
+        <input type="range" name="" id="" bind:value={factor} class="range">
+			</label>
+		</p>
 		<p>
 			<small
 				>For multiplicative/divisive columns, the factor that will be multiplied/divided is the
 				value shown plus 1.</small
 			>
 		</p>
-		<p><label>Stackable? <input type="checkbox" bind:this={stackCheckbox} value={1} checked={stackable} /></label></p>
+		<p>
+			<label
+				>Stackable? <input
+					type="checkbox"
+					bind:this={stackCheckbox}
+					value={1}
+					checked={stackable}
+				/></label
+			>
+		</p>
 		<button type="submit">Update Column</button>
 	</div>
 </form>
