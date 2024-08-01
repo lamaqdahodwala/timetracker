@@ -30,6 +30,10 @@
 	}
 	let promise = fetchData();
 
+  export function refetch() {
+    promise = fetchData
+  }
+
 </script>
 
 {#await promise}

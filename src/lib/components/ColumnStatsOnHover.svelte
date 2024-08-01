@@ -53,6 +53,14 @@
 	$: {
 		setDropDownEndClass(dropdown);
   }
+
+  export function refetchColumnStats() {
+    refetchColumnInfo()
+    refetchHistoricalGraph()
+  }
+
+  const refetchColumnInfo
+  const refetchHistoricalGraph
 </script>
 
 <div class="dropdown dropdown-hover {dropdownEndClass}">
@@ -65,8 +73,8 @@
 	</div>
 	<div class="menu dropdown-content z-50 " bind:this={dropdown}>
 		<div class="m-2 rounded-lg border border-gray-300 bg-gray-800 p-3 shadow-xl ">
-			<ColumnInfo {colId} />
-			<ColumnHistoricalGraph {colId} />
+			<ColumnInfo {colId} bind:refetch={refetchColumnInfo}/>
+			<ColumnHistoricalGraph {colId} bind:refetch={refetchHistoricalGraph}/>
 		</div>
 	</div>
 </div>

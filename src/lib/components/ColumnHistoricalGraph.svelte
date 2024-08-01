@@ -12,6 +12,9 @@
 	}
 
 	let historicalData: Promise<{ date: string; value: number }[]> = getHistorical();
+  export function refetch() {
+    historicalData = getHistorical()
+  }
 </script>
 
 {#await historicalData}

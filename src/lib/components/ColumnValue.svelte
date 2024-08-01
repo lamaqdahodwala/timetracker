@@ -98,6 +98,7 @@
 	}
 
   let updateColumnDropdown: HTMLDetailsElement
+  const refetchColumnStats
 </script>
 
 <svelte:window on:resize={() => setDropDownEndClass(dropdown)} />
@@ -111,13 +112,13 @@
 	role="dialog"
 >
 	<div class="relative flex flex-row justify-center gap-3">
-		<ColumnStatsOnHover name={props.name} colId={props.id} />
+		<ColumnStatsOnHover name={props.name} colId={props.id} bind:refetchColumnStats/>
 		<details class="dropdown {dropdownEndClass}" bind:this={updateColumnDropdown}>
 			<summary class="btn btn-xs absolute {mousedOver ? '' : 'disabled opacity-0'}">
 				<IconSettings stroke={1} size={20} />
 			</summary>
 			<div class="menu dropdown-content z-10 bg-base-200" bind:this={dropdown}>
-				<UpdateColumnForm colId={props.id} on:close={() => updateColumnDropdown.removeAttribute('open')} on:refetchData={() => dispatch('updatedColumn')}
+				<UpdateColumnForm colId={props.id} on:close={() => updateColumnDropdown.removeAttribute('open')} on:refetchData={() => { refetchColumnStats(); dispatch('updatedColumn') }}
 				></UpdateColumnForm>
 			</div>
       <button class="fixed top-0 left-0 h-screen w-screen" on:click={() => updateColumnDropdown.removeAttribute("open")}></button>
