@@ -76,12 +76,14 @@ export class MoveDataToHistorical extends AuthAPIResponse {
 
 	isColumnLastUpdatedBeforeToday(lastUpdated: Date): boolean {
 		const lastUpdatedDate = DateTime.fromJSDate(lastUpdated);
+    console.log(lastUpdatedDate)
     let userTimezone = lastUpdatedDate.zoneName
 
     if (!userTimezone) {
       userTimezone = "UTC"
     }
 
-		return !lastUpdatedDate.hasSame(DateTime.now().setZone(userTimezone), 'day');
+		let sameDay =  !lastUpdatedDate.hasSame(DateTime.now().setZone(userTimezone), 'day');
+    return sameDay
 	}
 }

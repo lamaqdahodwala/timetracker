@@ -63,7 +63,7 @@
 	</div>
 	<div>
 		<div class="form-control rounded-xl border border-neutral p-2">
-			<p class="my-2 font-bold">Column Type</p>
+			<p class="my-2 font-bold flex flex-row items-center">Column Type</p>
 			{#each ['additive', 'subtractive', 'multiplicative', 'divisive'] as col}
 				<p>
 					<label><input type="radio" bind:group={colType} value={col} class="radio" /> {col}</label>
