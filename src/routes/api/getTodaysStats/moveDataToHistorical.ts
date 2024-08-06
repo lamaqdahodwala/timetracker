@@ -4,7 +4,7 @@ import { AuthAPIResponse } from '$lib/abstract/AuthAPIResponse';
 import type { User } from '@auth/sveltekit';
 import type { PrismaClient, Prisma } from '@prisma/client';
 import type { DefaultArgs } from '@prisma/client/runtime/library';
-import type { RequestEvent } from '@sveltejs/kit';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import { DateTime } from 'luxon';
 
 export class MoveDataToHistorical extends AuthAPIResponse {
@@ -22,12 +22,23 @@ export class MoveDataToHistorical extends AuthAPIResponse {
 
 		let userScore: number = await props.calculator.call();
 
+    let userTimezone = await prisma.user.findUnique({
+      where: {
+        id: props.user.id
+      }, 
+      select: {
+        timezone: true
+      }
+    })
+
+    if (!userTimezone || !userTimezone.timezone) throw error(500)
+
 		// if the column was last updated yesterday (or before), move it into the historical data section
 		let hasCreatedScoreRow = false;
 		for (let index = 0; index < cols.length; index++) {
 			const element = cols[index];
 
-			if (this.isColumnLastUpdatedBeforeToday(element.lastUpdated)) {
+			if (this.isColumnLastUpdatedBeforeToday(element.lastUpdated, userTimezone.timezone)) {
 				if (!hasCreatedScoreRow) {
 					await prisma.scoreRow.create({
 						data: {
@@ -74,10 +85,9 @@ export class MoveDataToHistorical extends AuthAPIResponse {
 		};
 	}
 
-	isColumnLastUpdatedBeforeToday(lastUpdated: Date): boolean {
+	isColumnLastUpdatedBeforeToday(lastUpdated: Date, userTimezone: string): boolean {
 		const lastUpdatedDate = DateTime.fromJSDate(lastUpdated);
     console.log(lastUpdatedDate)
-    let userTimezone = lastUpdatedDate.zoneName
 
     if (!userTimezone) {
       userTimezone = "UTC"
