@@ -53,7 +53,7 @@ Have a graph view available that can show you your progress/scores visually over
 
 Have a help center that has articles on ways to improve your productivity scores and using the system well, incorporating knowledge that I gained through my PKM system. The blog should be part of the website (as in, not just a static markdown blog), and should have an interface for admins to add articles, while also having a comments section.
 
-#### Setting target productivity scores for a day/week/month
+#### Setting target productivity scores for a day/week/month: DONE
 
 The user is able to set target productivity scores for a given day, week, or month. For a week or month, the target represents the total score from every day in that period. Target scores appear next to the input for the actual score, or more discreetly for week and month long periods. These scores serve no purpose other than to motivate the user into following the system they have set up.
 
