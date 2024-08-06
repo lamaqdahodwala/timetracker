@@ -7,6 +7,9 @@
 	import DeleteColumnButton from '$lib/components/DeleteColumnButton.svelte';
 	import Graph from '$lib/components/Graph.svelte';
 	import ScoreStatsOnHover from '$lib/components/ScoreStatsOnHover.svelte';
+	import Timer from '$lib/components/Timer.svelte';
+	import { onMount } from 'svelte';
+	import { DateTime } from 'luxon';
 
 	export let data: PageData;
 	$: columns = data.todaysStats.columns || [];
@@ -14,6 +17,17 @@
 	let refetching = '';
 	let timeout: any;
 	let todaysScore: number = data.score;
+	onMount(() => {
+		fetch('/api/firstTimeSetOffset', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+      body: JSON.stringify({
+        offset: DateTime.fromJSDate(new Date()).zoneName
+      } )
+		});
+	});
 	async function refetchData() {
 		clearTimeout(timeout);
 		refetching = 'Saving...';
@@ -40,11 +54,12 @@
 	>
 		{#each columns as i}
 			<ColumnValue props={i} on:updatedColumn={refetchData}></ColumnValue>
-  {/each}
+		{/each}
 		<CreateColumnButton on:refetchData={refetchData} />
-
-  </div>
+	</div>
 	<ScoreStatsOnHover {todaysScore}></ScoreStatsOnHover>
 	<p class="text-sm text-gray-300">{refetching}</p>
 	<div class="w-12"></div>
 </div>
+
+<Timer />
