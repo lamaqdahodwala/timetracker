@@ -8,7 +8,7 @@ export class SetTimezoneOffset extends AuthAPIResponse {
 	async onCall(
 		prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
 		props: { user: User; offset: string }
-	) {
+	): { timezone: string } {
 		let updatedUser = await prisma.user.update({
 			where: {
 				id: props.user.id
@@ -18,9 +18,9 @@ export class SetTimezoneOffset extends AuthAPIResponse {
 			}
 		});
 
-    return {
-      timezone: updatedUser.timezone
-    }
+		return {
+			timezone: updatedUser.timezone
+		};
 	}
 
 	async getProps(event: RequestEvent<Partial<Record<string, string>>, string | null>) {
