@@ -26,7 +26,7 @@ export class SetTimezoneOffset extends AuthAPIResponse {
 	async getProps(event: RequestEvent<Partial<Record<string, string>>, string | null>) {
 		let json = await event.request.json();
 
-		let offset = json.offset;
+		let offset = json.timezone;
 
 		return {
 			offset: String(offset)
