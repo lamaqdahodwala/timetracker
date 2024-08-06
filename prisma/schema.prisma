@@ -65,6 +65,8 @@ model User {
   columns Column[]
 
   pastProductivityScores ScoreRow[]
+
+  utcOffset Int?
 }
 
 model Account {
