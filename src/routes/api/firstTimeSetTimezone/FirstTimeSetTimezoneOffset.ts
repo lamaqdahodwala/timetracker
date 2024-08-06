@@ -8,7 +8,7 @@ export class FirstTimeSetOffset extends SetTimezoneOffset {
 	async onCall(
 		prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
 		props: { user: User; offset: string }
-	): Promise<{ timezone: string | null }> {
+	): Promise<{ timezone: string}> {
 		let user = await prisma.user.findUnique({
 			where: {
 				id: props.user.id
@@ -21,7 +21,7 @@ export class FirstTimeSetOffset extends SetTimezoneOffset {
 			super.call();
 		}
 		return {
-			timezone: user?.timezone
+			timezone: user?.timezone || "UTC"
 		};
 	}
 }
