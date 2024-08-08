@@ -7,7 +7,6 @@
 	import DeleteColumnButton from '$lib/components/DeleteColumnButton.svelte';
 	import Graph from '$lib/components/Graph.svelte';
 	import ScoreStatsOnHover from '$lib/components/ScoreStatsOnHover.svelte';
-	import Timer from '$lib/components/Timer.svelte';
 	import { onMount } from 'svelte';
 	import { DateTime } from 'luxon';
 
@@ -62,4 +61,3 @@
 	<div class="w-12"></div>
 </div>
 
-<Timer />
