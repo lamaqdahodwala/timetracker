@@ -17,14 +17,14 @@
 	let refetching = '';
 	let timeout: any;
 	let todaysScore: number = data.score;
-	onMount(() => {
-		fetch('/api/firstTimeSetOffset', {
+	onMount(async() => {
+		await fetch('/api/firstTimeSetTimezone', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
       body: JSON.stringify({
-        offset: DateTime.fromJSDate(new Date()).zoneName
+        zoneName: DateTime.fromJSDate(new Date()).zoneName
       } )
 		});
 	});
